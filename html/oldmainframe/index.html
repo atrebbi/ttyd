@@ -1,0 +1,138 @@
+<!doctype html>
+  <html>
+    <head>
+
+      <!--
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+      -->
+
+      <!-- xterm -->
+      <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+    
+      <script type="module" src="./node_modules/xterm/lib/xterm.js"></script>
+
+      <script type="module" src="./node_modules/xterm-addon-attach/lib/xterm-addon-attach.js"></script>
+
+      <!--
+      <script type="module" src="./node_modules/xterm-addon-attach/out/AttachAddon.js"></script>
+      -->
+
+      <!-- glitch -->
+      <link rel="stylesheet" href="index.css">
+      <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<style>
+
+/*
+    body {
+      margin: 0px;
+      border: 0px;
+      padding: 0px;
+      animation: bg-move 2s linear infinite;
+      background-size: 100% 8px;
+      background-image: linear-gradient(0, rgba(255,255,255,.05) 10%, 
+          transparent 10%, transparent 50%, rgba(255,255,255,.05) 50%, rgba(255,255,255,.05) 60%, 
+          transparent 60%, transparent)
+    }
+
+    #monitortn3270 {
+      background: black;
+      width: 512px;
+      height: 512px;
+    }
+
+    #terminal {
+      background: transparent;
+    }
+
+    @keyframes bg-move
+      0%:
+    background-position: 0 0
+      100%
+    background-position: 0 -32px
+*/
+
+</style>
+
+
+    </head>
+
+    <body>
+
+
+      <a class="switcher" href="#"></a>
+      <div class="screen glitch">
+        <div class="terminal is-off">
+          <span logo="MVS 3.8j">
+              <div id="terminal"></div>
+          </span></div>
+         
+
+        <div class="figure"></div>
+        <div class="figure-mask"></div>
+
+          
+      </div>
+
+
+<script type="module">
+
+ // import  { Terminal } from 'xterm';
+ // import  { AttachAddon } from 'xterm-addon-attach';
+
+  $(document).ready(function () {
+
+    $('.switcher').on('click', function(e) {
+      e.preventDefault();
+      $('.screen').toggleClass('glitch');
+    });
+
+    // vecchia sintassi ???
+    // Terminal.applyAddon(attach);
+
+    var term = new Terminal({
+      rows: 32,
+      cols: 80
+    });
+
+    term.setOption('logLevel', 'debug');
+
+    //term.loadAddon(new WebLinksAddon());
+    //term.loadAddon(new FitAddon());
+    
+    // wss e' criptato ed anche piu affidabile, 
+    //  verificare se e' possibile usarlo (il certificato c'e')
+    // const webSocket = new WebSocket('ws://aleforever.3bsoft.com:3270');
+    
+    var webSocket = new WebSocket('ws://127.0.0.1:9001');
+
+    // import { Terminal } from '../out/public/Terminal';
+    //import { AttachAddon } from './xterm-addon-attach/out/AttachAddon';
+    //var aa = new AttachAddon()
+
+    //term.loadAddon(new AttachAddon(webSocket));
+
+    term.open(document.getElementById('terminal'));
+
+    $('.terminal').removeClass('is-off');
+
+    term.write("This is a private computer, please don't hack!\r\n\n")
+    term.write('Hello from \x1B[1;3;31mMVS 3.8j Mainframe\x1B[0m $ ')
+
+
+  });
+
+
+
+</script>
+
+
+
+
+    </body>
+  </html>
+  
