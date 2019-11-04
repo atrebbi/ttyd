@@ -15,6 +15,7 @@ const termOptions = {
     fontSize: 24,
     cols: 80,
     fontFamily: 'Glass_TTY_VT220,Courier,monospace',
+    allowTransparency: true,
     theme: {
         foreground: '#d2d2d2',
         background: '#2b2b2b80',
