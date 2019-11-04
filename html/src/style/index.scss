@@ -81,8 +81,8 @@ a.switcher:before {
   display: block;
   position: absolute;
   z-index: 9;
-  width: 960px;   // (24 / 2) * 80 , + 10 padding ? 
-  height: 800px;  // (24 + 1) * 32 , + 10 padding ? 
+  width: 720px;   // (24 / 2) * 80 , + 10 padding ? 
+  height: 608px;  // (24 + 1) * 32 , + 10 padding ? 
   text-align: center;
   top: 0;
   right: 0;
@@ -90,6 +90,10 @@ a.switcher:before {
   left: 0;
   margin: auto;
   cursor: default;
+}
+
+canvas {
+  background-color: transparent;
 }
 
 .terminal .is-off {
