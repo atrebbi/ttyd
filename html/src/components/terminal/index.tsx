@@ -2,16 +2,13 @@ import { bind } from 'decko';
 import * as backoff from 'backoff';
 import { Component, h } from 'preact';
 import { ITerminalOptions, Terminal } from 'xterm';
-import { FitAddon } from 'xterm-addon-fit';
-import { WebLinksAddon } from 'xterm-addon-web-links';
-
 import { OverlayAddon } from './overlay';
 import { ZmodemAddon } from '../zmodem';
 
 import 'xterm/css/xterm.css';
 
 export interface TerminalExtended extends Terminal {
-    fit();
+
 }
 
 export interface WindowExtended extends Window {
@@ -41,8 +38,7 @@ export class Xterm extends Component<Props> {
     private textEncoder: TextEncoder;
     private textDecoder: TextDecoder;
     private container: HTMLElement;
-    private terminal: Terminal;
-    private fitAddon: FitAddon;
+    private terminal: Terminal;d
     private overlayAddon: OverlayAddon;
     private zmodemAddon: ZmodemAddon;
     private socket: WebSocket;
@@ -56,7 +52,6 @@ export class Xterm extends Component<Props> {
 
         this.textEncoder = new TextEncoder();
         this.textDecoder = new TextDecoder();
-        this.fitAddon = new FitAddon();
         this.overlayAddon = new OverlayAddon();
         this.backoff = backoff.exponential({
             initialDelay: 100,
@@ -85,10 +80,27 @@ export class Xterm extends Component<Props> {
     }
 
     render({ id }: Props) {
+      /*
+      <a class="switcher" href="#"></a>
+      <div class="screen glitch">
+        <div class="terminal is-off">
+          <span logo="MVS 3.8j">
+              <div id="terminal"></div>
+          </span>
+        </div>
+        <div class="figure"></div>
+        <div class="figure-mask"></div>
+      </div>
+      */
         return (
-            <div id={id} ref={c => (this.container = c)}>
-                <ZmodemAddon ref={c => (this.zmodemAddon = c)} sender={this.sendData} />
-            </div>
+
+                <div class="screen glitch">
+                    <div id={id} ref={c => (this.container = c)}>
+                        <ZmodemAddon ref={c => (this.zmodemAddon = c)} sender={this.sendData} />
+                    </div>
+                    <a class="switcher" href="#"></a>
+                </div>
+
         );
     }
 
@@ -103,9 +115,14 @@ export class Xterm extends Component<Props> {
 
     @bind
     private onWindowResize() {
-        const { fitAddon } = this;
+        const { overlayAddon } = this;
         clearTimeout(this.resizeTimeout);
-        this.resizeTimeout = setTimeout(() => fitAddon.fit(), 250) as any;
+        this.resizeTimeout = setTimeout(() => { 
+            //alert('resize')
+            setTimeout(() => {
+                overlayAddon.showOverlay(`resize`);
+            }, 500);
+        })
     }
 
     private onWindowUnload(event: BeforeUnloadEvent): string {
@@ -122,11 +139,8 @@ export class Xterm extends Component<Props> {
 
         this.socket = new WebSocket(this.props.url, ['tty']);
         this.terminal = new Terminal(this.props.options);
-        const { socket, terminal, container, fitAddon, overlayAddon } = this;
+        const { socket, terminal, container, overlayAddon } = this;
         window.term = terminal as TerminalExtended;
-        window.term.fit = () => {
-            this.fitAddon.fit();
-        };
 
         socket.binaryType = 'arraybuffer';
         socket.onopen = this.onSocketOpen;
@@ -134,9 +148,7 @@ export class Xterm extends Component<Props> {
         socket.onclose = this.onSocketClose;
         socket.onerror = this.onSocketError;
 
-        terminal.loadAddon(fitAddon);
         terminal.loadAddon(overlayAddon);
-        terminal.loadAddon(new WebLinksAddon());
         terminal.loadAddon(this.zmodemAddon);
 
         terminal.onTitleChange(data => {
@@ -172,11 +184,10 @@ export class Xterm extends Component<Props> {
         console.log('[ttyd] Websocket connection opened');
         this.backoff.reset();
 
-        const { socket, textEncoder, fitAddon } = this;
+        const { socket, textEncoder } = this;
         const authToken = window.tty_auth_token;
 
         socket.send(textEncoder.encode(JSON.stringify({ AuthToken: authToken })));
-        fitAddon.fit();
     }
 
     @bind
@@ -233,6 +244,7 @@ export class Xterm extends Component<Props> {
 
     @bind
     private onTerminalResize(size: { cols: number; rows: number }) {
+        alert('No terminal resize')
         const { overlayAddon, socket, textEncoder } = this;
         if (socket.readyState === WebSocket.OPEN) {
             const msg = JSON.stringify({ columns: size.cols, rows: size.rows });
