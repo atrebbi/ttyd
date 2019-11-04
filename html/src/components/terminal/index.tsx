@@ -119,9 +119,11 @@ export class Xterm extends Component<Props> {
         clearTimeout(this.resizeTimeout);
         this.resizeTimeout = setTimeout(() => { 
             //alert('resize')
+            /*
             setTimeout(() => {
                 overlayAddon.showOverlay(`resize`);
             }, 500);
+            */
         })
     }
 

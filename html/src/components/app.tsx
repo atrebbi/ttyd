@@ -22,7 +22,7 @@ const termOptions = {
     theme: {
         allowTransparency: true,
         foreground: '#d2d2d2',
-        background: '#2b2b2b80',
+        background: '#4b4b4bc0',
         cursor: '#adadad',
         black: '#000000',
         red: '#d81e00',
