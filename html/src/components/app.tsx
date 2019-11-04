@@ -12,11 +12,12 @@ const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
 const wsPath = window.location.pathname.endsWith('/') ? 'ws' : '/ws';
 const url = [protocol, window.location.host, window.location.pathname, wsPath, window.location.search].join('');
 const termOptions = {
-    fontSize: 13,
-    fontFamily: 'Menlo For Powerline,Consolas,Liberation Mono,Menlo,Courier,monospace',
+    fontSize: 24,
+    cols: 80,
+    fontFamily: 'Glass_TTY_VT220,Courier,monospace',
     theme: {
         foreground: '#d2d2d2',
-        background: '#2b2b2b',
+        background: '#2b2b2b80',
         cursor: '#adadad',
         black: '#000000',
         red: '#d81e00',
