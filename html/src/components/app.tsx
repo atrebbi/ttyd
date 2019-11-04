@@ -12,11 +12,15 @@ const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
 const wsPath = window.location.pathname.endsWith('/') ? 'ws' : '/ws';
 const url = [protocol, window.location.host, window.location.pathname, wsPath, window.location.search].join('');
 const termOptions = {
-    fontSize: 24,
+    fontSize: 16,
     cols: 80,
+    rows: 32,
     fontFamily: 'Glass_TTY_VT220,Courier,monospace',
     allowTransparency: true,
+    cursorBlink: true,
+    rendererType: 'dom',
     theme: {
+        allowTransparency: true,
         foreground: '#d2d2d2',
         background: '#2b2b2b80',
         cursor: '#adadad',
