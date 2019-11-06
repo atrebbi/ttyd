@@ -43,7 +43,7 @@ export class Xterm extends Component<Props> {
     private zmodemAddon: ZmodemAddon;
     private socket: WebSocket;
     private title: string;
-    private resizeTimeout: number;
+    private resizeTimeout: NodeJS.Timer;
     private backoff: backoff.Backoff;
     private backoffLock = false;
 
@@ -118,19 +118,15 @@ export class Xterm extends Component<Props> {
         const { overlayAddon, container } = this;
         clearTimeout(this.resizeTimeout);
         this.resizeTimeout = setTimeout(() => { 
+      
+                //var container = document.querySelector("#terminal-container");
+                var fontSize = Math.trunc(container.clientWidth * 1.8 / 8.0) / 10.0; 
+                if (this.terminal) {
+                    this.terminal.setOption("fontSize", fontSize)
+                }
+                //overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
 
-            //var container = document.querySelector("#terminal-container");
-            var fontSize = Math.trunc(container.clientWidth * 1.8 / 8.0) / 10.0; 
-
-            if (this.terminal) {
-                this.terminal.setOption("fontSize", fontSize)
-            }
-
-            setTimeout(() => {
-                overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
-            }, 500);
-            
-        })
+        }, 500)
     }
 
     private onWindowUnload(event: BeforeUnloadEvent): string {
