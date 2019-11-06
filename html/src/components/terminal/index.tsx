@@ -178,6 +178,13 @@ export class Xterm extends Component<Props> {
         window.addEventListener('resize', this.onWindowResize);
         window.addEventListener('beforeunload', this.onWindowUnload);
 
+        let switcherButton = document.querySelector('.switcher');
+        switcherButton.addEventListener("click",  function (e) { 
+          e.preventDefault();
+          let theScreen = document.querySelector('.screen');
+          theScreen.classList.toggle('glitch');
+        });
+
     }
 
     @bind
