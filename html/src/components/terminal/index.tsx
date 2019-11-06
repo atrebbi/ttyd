@@ -123,6 +123,7 @@ export class Xterm extends Component<Props> {
                 var fontSize = Math.trunc(container.clientWidth * 1.8 / 8.0) / 10.0; 
                 if (this.terminal) {
                     this.terminal.setOption("fontSize", fontSize)
+                    this.terminal.refresh(0, this.terminal.rows-1)
                 }
                 //overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
 
