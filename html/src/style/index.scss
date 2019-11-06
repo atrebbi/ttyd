@@ -6,7 +6,7 @@
 
   width: 80vw;
   height: calc(80vw * 608 / 800);
-  transform: translateY(calc((100vw * 608 / 800 - 100vh) / -2));
+  transform: translateY(calc((80vw * 608 / 800 - 100vh) / (-2 * 0.8)));
 
   margin: auto;
 }

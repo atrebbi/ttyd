@@ -127,7 +127,7 @@ export class Xterm extends Component<Props> {
                 }
                 //overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
 
-        }, 500)
+        }, 250)
     }
 
     private onWindowUnload(event: BeforeUnloadEvent): string {
@@ -177,7 +177,7 @@ export class Xterm extends Component<Props> {
         this.onWindowResize();
         window.addEventListener('resize', this.onWindowResize);
         window.addEventListener('beforeunload', this.onWindowUnload);
-        
+
     }
 
     @bind
