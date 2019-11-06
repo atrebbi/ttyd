@@ -115,15 +115,21 @@ export class Xterm extends Component<Props> {
 
     @bind
     private onWindowResize() {
-        const { overlayAddon } = this;
+        const { overlayAddon, container } = this;
         clearTimeout(this.resizeTimeout);
         this.resizeTimeout = setTimeout(() => { 
-            //alert('resize')
-            /*
+
+            //var container = document.querySelector("#terminal-container");
+            var fontSize = Math.trunc(container.clientWidth * 1.8 / 8.0) / 10.0; 
+
+            if (this.terminal) {
+                this.terminal.setOption("fontSize", fontSize)
+            }
+
             setTimeout(() => {
-                overlayAddon.showOverlay(`resize`);
+                overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
             }, 500);
-            */
+            
         })
     }
 
@@ -167,6 +173,10 @@ export class Xterm extends Component<Props> {
                 document.execCommand('copy');
             });
         }
+
+        var fontSize = Math.trunc(container.clientWidth * 1.8 / 8.0) / 10.0; 
+        terminal.setOption("fontSize", fontSize)
+
         terminal.open(container);
         terminal.focus();
 

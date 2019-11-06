@@ -1,24 +1,22 @@
-
-/*
 #terminal-container {
-  padding: 0;
-  background-color: #2b2b2b;
-  .terminal {
-    margin: 0 auto;
-    padding: 5px 50px 5px 5px; 
-    width: 960px;   // (24 / 2) * 80 , + 10 padding ? 
-    height: 800px;  // (24 + 1) * 32 , + 10 padding ? 
-    background-color: #00000080;
-    font-size: 24px;
-  }
+  // 800 corrisponde alla larghezza di 80 colonne con fontSize=18
+  // (font-height / 1.8) * 80 
+  // (font-height + 1) * 32  
+  position: relative;
+
+  width: 80vw;
+  height: calc(80vw * 608 / 800);
+  transform: translateY(calc((100vw * 608 / 800 - 100vh) / -2));
+
+  margin: auto;
 }
-*/
+
 
 /* @import url("http://fonts.googleapis.com/css?family=Lato:400,700"); */
 
 /* fix per xterm (nasconde scrollbar) */
 .xterm .xterm-viewport {
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 *,
@@ -83,18 +81,11 @@ a.switcher:before {
 }
 
 .terminal {
-  display: block;
   position: absolute;
-  z-index: 9;
-  width: 800px;   // (24 / 2) * 80 , + 10 padding ? 
-  height: 608px;  // (24 + 1) * 32 , + 10 padding ? 
-  text-align: left;
   top: 0;
-  right: 0;
   bottom: 0;
   left: 0;
-  margin: auto;
-  cursor: default;
+  right: 0;
 }
 
 canvas {
