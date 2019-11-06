@@ -171,14 +171,13 @@ export class Xterm extends Component<Props> {
             });
         }
 
-        var fontSize = Math.trunc(container.clientWidth * 1.8 / 8.0) / 10.0; 
-        terminal.setOption("fontSize", fontSize)
-
         terminal.open(container);
         terminal.focus();
 
+        this.onWindowResize();
         window.addEventListener('resize', this.onWindowResize);
         window.addEventListener('beforeunload', this.onWindowUnload);
+        
     }
 
     @bind
