@@ -118,15 +118,37 @@ export class Xterm extends Component<Props> {
         const { overlayAddon, container } = this;
         clearTimeout(this.resizeTimeout);
         this.resizeTimeout = setTimeout(() => { 
-      
-                //var container = document.querySelector("#terminal-container");
-                var fontSize = Math.trunc(container.clientWidth * 1.8 / 8.0) / 10.0; 
-                if (this.terminal) {
-                    this.terminal.setOption("fontSize", fontSize)
-                    this.terminal.refresh(0, this.terminal.rows-1)
-                }
-                //overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
 
+                if (this.terminal) {
+                    var containerWidth = window.innerWidth * 0.9;
+                    var containerHeight = window.innerHeight * 0.9;
+
+                    var cols = this.terminal.getOption("cols");
+                    var rows = this.terminal.getOption("rows");
+                    var fontSizeOld = this.terminal.getOption("fontSize");
+
+                    var fontSize = Math.min(
+                        Math.floor(containerWidth / cols * 2 - 2),
+                        Math.floor(containerHeight / rows - 2),
+                    );   
+                    containerWidth = (fontSize / 2.0 + 1) * cols;
+                    containerHeight = (fontSize + 1) * rows;
+
+                    var containerTop = (window.innerHeight - containerHeight) / 2.0;
+                        
+                    container.style.width = containerWidth + "px";
+                    container.style.height = containerHeight + "px";
+                    container.style.top = containerTop + "px";
+
+                    if (fontSize != fontSizeOld) {
+                        this.terminal.setOption("fontSize", fontSize)
+                        this.terminal.refresh(0, this.terminal.rows-1)
+                    }
+
+                    //overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
+
+                }
+                
         }, 250)
     }
 
