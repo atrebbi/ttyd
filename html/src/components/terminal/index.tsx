@@ -309,6 +309,9 @@ export class Xterm extends Component<Props> {
         const { socket, textEncoder } = this;
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(textEncoder.encode(Command.INPUT + data));
+             
+            eval("gtag('event', 'terminal_data')")
+
         }
     }
 }
