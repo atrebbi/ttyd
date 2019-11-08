@@ -110,44 +110,13 @@ canvas {
   background-image: -webkit-linear-gradient(0, rgba(255,255,255,0.05) 10%, transparent 10%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 60%, transparent 60%, transparent);
   background-image: linear-gradient(0, rgba(255,255,255,0.05) 10%, transparent 10%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 60%, transparent 60%, transparent);
 }
-.glitch .figure,
-.glitch .figure-mask {
-  -webkit-transform: skewX(0deg) scaleY(1);
-  transform: skewX(0deg) scaleY(1);
-  -webkit-animation: tr-bag 4s linear infinite;
-  animation: tr-bag 4s linear infinite;
-}
 .glitch .terminal {
   -webkit-transform: skewX(0deg) scaleY(1);
   transform: skewX(0deg) scaleY(1);
   -webkit-animation: terminal-bag 4s linear infinite;
   animation: terminal-bag 4s linear infinite;
 }
-.glitch .terminal span:before,
-.glitch .terminal span:after {
-  display: block;
-  content: attr(logo);
-  position: absolute;
-  top: 0;
-  color: #fff;
-  background: #111;
-  overflow: hidden;
-  width: 90%;
-  height: 128px;
-  clip: rect(0, 900px, 0, 0);
-}
-.glitch .terminal span:before {
-  left: -2px;
-  text-shadow: 2px 0 #00f;
-  -webkit-animation: c2 1s infinite linear alternate-reverse;
-  animation: c2 1s infinite linear alternate-reverse;
-}
-.glitch .terminal span:after {
-  left: 3px;
-  text-shadow: -2px 0 #f00;
-  -webkit-animation: c1 2s infinite linear alternate-reverse;
-  animation: c1 2s infinite linear alternate-reverse;
-}
+
 @-webkit-keyframes is-off {
   0% {
     opacity: 1;

@@ -131,8 +131,12 @@ export class Xterm extends Component<Props> {
                         Math.floor(containerWidth / cols * 2 - 2),
                         Math.floor(containerHeight / rows - 2),
                     );   
-                    containerWidth = (fontSize / 2.0 + 1) * cols;
-                    containerHeight = (fontSize + 1) * rows;
+
+                    var fontHeight = Math.floor(fontSize) + 1
+                    var fontWidth = Math.floor(fontSize / 2.0) + 1
+
+                    containerWidth = fontWidth * cols;
+                    containerHeight = fontHeight * rows;
 
                     var containerTop = (window.innerHeight - containerHeight) / 2.0;
                         
@@ -145,7 +149,7 @@ export class Xterm extends Component<Props> {
                         this.terminal.refresh(0, this.terminal.rows-1)
                     }
 
-                    //overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
+                    overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
 
                 }
                 
@@ -205,6 +209,14 @@ export class Xterm extends Component<Props> {
           e.preventDefault();
           let theScreen = document.querySelector('.screen');
           theScreen.classList.toggle('glitch');
+          terminal.focus();
+        });
+
+        let screen = document.querySelector('.screen');
+        screen.addEventListener("click",  function (e) { 
+          e.preventDefault();
+          //alert('screen click');
+          terminal.focus();
         });
 
     }
@@ -281,7 +293,7 @@ export class Xterm extends Component<Props> {
 
     @bind
     private onTerminalResize(size: { cols: number; rows: number }) {
-        alert('No terminal resize')
+        //alert('No terminal resize')
         const { overlayAddon, socket, textEncoder } = this;
         if (socket.readyState === WebSocket.OPEN) {
             const msg = JSON.stringify({ columns: size.cols, rows: size.rows });
@@ -297,6 +309,9 @@ export class Xterm extends Component<Props> {
         const { socket, textEncoder } = this;
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(textEncoder.encode(Command.INPUT + data));
+             
+            eval("gtag('event', 'terminal_data', {'size' : " + data.length + "})");
+
         }
     }
 }
