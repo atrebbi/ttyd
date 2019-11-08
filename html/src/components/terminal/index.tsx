@@ -293,8 +293,7 @@ export class Xterm extends Component<Props> {
 
     @bind
     private onTerminalResize(size: { cols: number; rows: number }) {
-        /*
-        alert('No terminal resize')
+        //alert('No terminal resize')
         const { overlayAddon, socket, textEncoder } = this;
         if (socket.readyState === WebSocket.OPEN) {
             const msg = JSON.stringify({ columns: size.cols, rows: size.rows });
@@ -303,7 +302,6 @@ export class Xterm extends Component<Props> {
         setTimeout(() => {
             overlayAddon.showOverlay(`${size.cols}x${size.rows}`);
         }, 500);
-        */
     }
 
     @bind
