@@ -293,6 +293,7 @@ export class Xterm extends Component<Props> {
 
     @bind
     private onTerminalResize(size: { cols: number; rows: number }) {
+        /*
         alert('No terminal resize')
         const { overlayAddon, socket, textEncoder } = this;
         if (socket.readyState === WebSocket.OPEN) {
@@ -302,6 +303,7 @@ export class Xterm extends Component<Props> {
         setTimeout(() => {
             overlayAddon.showOverlay(`${size.cols}x${size.rows}`);
         }, 500);
+        */
     }
 
     @bind
@@ -310,7 +312,7 @@ export class Xterm extends Component<Props> {
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(textEncoder.encode(Command.INPUT + data));
              
-            eval("gtag('event', 'terminal_data')")
+            eval("gtag('event', 'terminal_data', {'size' : " + data.length + "})");
 
         }
     }
