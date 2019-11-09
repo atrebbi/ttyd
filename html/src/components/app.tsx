@@ -14,15 +14,15 @@ const url = [protocol, window.location.host, window.location.pathname, wsPath, w
 const termOptions = {
     fontSize: 18,
     cols: 80,
-    rows: 32,
+    rows: 25,
     fontFamily: 'Glass_TTY_VT220,Courier,monospace',
     allowTransparency: true,
     cursorBlink: true,
     rendererType: 'canvas',
     theme: {
         allowTransparency: true,
-        foreground: '#d2d2d2',
-        background: '#4b4b4bc0',
+        foreground: '#e2e2e2',
+        background: '#000000',
         cursor: '#adadad',
         black: '#000000',
         red: '#d81e00',
