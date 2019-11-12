@@ -212,7 +212,16 @@ export class Xterm extends Component<Props> {
           e.preventDefault();
           let theScreen = document.querySelector('.screen');
           theScreen.classList.toggle('glitch');
-          eval("gtag('event', 'toggle_glitch', {'category' : 'preferences', 'label' : '" + theScreen.classList.contains('glitch') + "'})");
+
+          var isGlitch = theScreen.classList.contains('glitch');
+
+          var audios=document.getElementsByTagName('audio');
+          for (var j = 0; j < audios.length; j++) {
+            audios[j].muted = !isGlitch;
+          }
+
+          eval("gtag('event', 'toggle_glitch', {'category' : 'preferences', 'label' : '" + isGlitch + "'})");
+
           terminal.focus();
         });
 
