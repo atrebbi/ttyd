@@ -48,3 +48,4 @@ export class App extends Component {
         return <Xterm id="terminal-container" url={url} options={termOptions} />;
     }
 }
+

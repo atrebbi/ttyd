@@ -322,4 +322,6 @@ export class Xterm extends Component<Props> {
 
         }
     }
+
 }
+
