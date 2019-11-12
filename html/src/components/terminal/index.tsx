@@ -10,16 +10,6 @@ import 'xterm/css/xterm.css';
 export interface TerminalExtended extends Terminal {
 
 }
-
-
-        /*
-        gtag('event', <action>, {
-            'event_category': <category>,
-            'event_label': <label>,
-            'value': <value>
-          });
-        */
-
         
 export interface WindowExtended extends Window {
     term: TerminalExtended;
@@ -196,9 +186,11 @@ export class Xterm extends Component<Props> {
         terminal.loadAddon(this.zmodemAddon);
 
         terminal.onTitleChange(data => {
+            /*
             if (data && data !== '') {
                 document.title = data + ' | ' + this.title;
             }
+            */
         });
         terminal.onData(this.onTerminalData);
         terminal.onResize(this.onTerminalResize);
@@ -254,7 +246,7 @@ export class Xterm extends Component<Props> {
         const { socket, textEncoder } = this;
         const authToken = window.tty_auth_token;
 
-        eval("gtag('event', 'open_connection', {'event_category' : 'terminal', 'event_label' : ''})");
+        eval("gtag('event', 'open_connection', {'event_category' : 'terminal', 'event_label' : 'onSocketOpen'})");
 
         socket.send(textEncoder.encode(JSON.stringify({ AuthToken: authToken })));
     }
@@ -267,7 +259,7 @@ export class Xterm extends Component<Props> {
         overlayAddon.showOverlay('Connection Closed', null);
         window.removeEventListener('beforeunload', this.onWindowUnload);
 
-        eval("gtag('event', 'close_connection', {'event_category' : 'terminal', 'event_label' : '" + event.code + "'})");
+        eval("gtag('event', 'close_connection', {'event_category' : 'terminal', 'event_label' : 'onSocketClose', 'value' : " + event.code + "})");
 
         // 1008: POLICY_VIOLATION - Auth failure
         if (event.code === 1008) {
@@ -332,7 +324,7 @@ export class Xterm extends Component<Props> {
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(textEncoder.encode(Command.INPUT + data));
              
-            eval("gtag('event', 'terminal_data', {'event_category' : 'terminal', 'event_label' : '" + data.length + "'})");
+            eval("gtag('event', 'terminal_data', {'event_category' : 'terminal', 'event_label' : 'onTerminalData', value: " + data.length + "})");
 
         }
     }
