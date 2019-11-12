@@ -10,7 +10,7 @@ import 'xterm/css/xterm.css';
 export interface TerminalExtended extends Terminal {
 
 }
-
+        
 export interface WindowExtended extends Window {
     term: TerminalExtended;
     tty_auth_token?: string;
@@ -149,7 +149,7 @@ export class Xterm extends Component<Props> {
                         this.terminal.refresh(0, this.terminal.rows-1)
                     }
 
-                    eval("gtag('event', 'resize_screen', {'category' : 'preferences', 'label' : '" + 
+                    eval("gtag('event', 'resize_screen', {'event_category' : 'preferences', 'event_label' : '" + 
                         container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize + "'})");
           
                     overlayAddon.showOverlay(container.clientWidth + "x" +  container.clientHeight + ", fontSize=" + fontSize);
@@ -187,7 +187,7 @@ export class Xterm extends Component<Props> {
 
         terminal.onTitleChange(data => {
             if (data && data !== '') {
-                document.title = data + ' | ' + this.title;
+                // document.title = data + ' | ' + this.title;
             }
         });
         terminal.onData(this.onTerminalData);
@@ -220,7 +220,7 @@ export class Xterm extends Component<Props> {
             audios[j].muted = !isGlitch;
           }
 
-          eval("gtag('event', 'toggle_glitch', {'category' : 'preferences', 'label' : '" + isGlitch + "'})");
+          eval("gtag('event', 'toggle_glitch', {'event_category' : 'preferences', 'event_label' : '" + isGlitch + "'})");
 
           terminal.focus();
         });
@@ -249,7 +249,7 @@ export class Xterm extends Component<Props> {
         const { socket, textEncoder } = this;
         const authToken = window.tty_auth_token;
 
-        eval("gtag('event', 'open_connection', {'category' : 'terminal', 'label' : ''})");
+        eval("gtag('event', 'open_connection', {'event_category' : 'terminal', 'event_label' : 'onSocketOpen'})");
 
         socket.send(textEncoder.encode(JSON.stringify({ AuthToken: authToken })));
     }
@@ -262,7 +262,7 @@ export class Xterm extends Component<Props> {
         overlayAddon.showOverlay('Connection Closed', null);
         window.removeEventListener('beforeunload', this.onWindowUnload);
 
-        eval("gtag('event', 'close_connection', {'category' : 'terminal', 'label' : '" + event.code + "'})");
+        eval("gtag('event', 'close_connection', {'event_category' : 'terminal', 'event_label' : 'onSocketClose', 'value' : " + event.code + "})");
 
         // 1008: POLICY_VIOLATION - Auth failure
         if (event.code === 1008) {
@@ -327,7 +327,7 @@ export class Xterm extends Component<Props> {
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(textEncoder.encode(Command.INPUT + data));
              
-            eval("gtag('event', 'terminal_data', {'category' : 'terminal', 'label' : '" + data.length + "'})");
+            eval("gtag('event', 'terminal_data', {'event_category' : 'terminal', 'event_label' : 'onTerminalData', value: " + data.length + "})");
 
         }
     }
