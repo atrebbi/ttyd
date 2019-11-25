@@ -15,11 +15,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>MVS3.8j</title>
-    <link inline rel="icon" type="image/png" href="favicon.png">
+    <link inline rel="icon" type="image/png" href="static/favicon.png">
     <% for (const css in htmlWebpackPlugin.files.css) { %>
     <link inline rel="stylesheet" src="<%= htmlWebpackPlugin.files.css[css] %>">
     <% } %>
 
+    <meta property="og:url"                content="https://mainframe.3bsoft.com" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="Mainframe with MVS38j" />
+    <meta property="og:description"        content="A Mainframe Emulator, running MVS v.3.8j by IBM" />
+    <meta property="og:image"              content="https://mainframe.3bsoft.com/static/images/fbshare.jpg" />
+    
 </head>
 <body>
 <script src="auth_token.js"></script>
