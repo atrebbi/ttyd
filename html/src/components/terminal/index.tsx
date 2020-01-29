@@ -98,7 +98,6 @@ export class Xterm extends Component<Props> {
                     <div id={id} ref={c => (this.container = c)}>
                         <ZmodemAddon ref={c => (this.zmodemAddon = c)} sender={this.sendData} />
                     </div>
-                    <a class="switcher" href="#"></a>
                 </div>
 
         );
@@ -206,24 +205,6 @@ export class Xterm extends Component<Props> {
         this.onWindowResize();
         window.addEventListener('resize', this.onWindowResize);
         window.addEventListener('beforeunload', this.onWindowUnload);
-
-        let switcherButton = document.querySelector('.switcher');
-        switcherButton.addEventListener("click",  function (e) { 
-          e.preventDefault();
-          let theScreen = document.querySelector('.screen');
-          theScreen.classList.toggle('glitch');
-
-          var isGlitch = theScreen.classList.contains('glitch');
-
-          var audios=document.getElementsByTagName('audio');
-          for (var j = 0; j < audios.length; j++) {
-            audios[j].muted = !isGlitch;
-          }
-
-          eval("gtag('event', 'toggle_glitch', {'event_category' : 'preferences', 'event_label' : '" + isGlitch + "'})");
-
-          terminal.focus();
-        });
 
         let screen = document.querySelector('.screen');
         screen.addEventListener("click",  function (e) { 
