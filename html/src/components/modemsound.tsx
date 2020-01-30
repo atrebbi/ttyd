@@ -10626,7 +10626,7 @@ export class ModemSound extends Component {
     }
 
     componentDidMount() {
-        this.playAudio()
+        // this.playAudio()
     }
 
     render() {

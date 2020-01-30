@@ -6,6 +6,8 @@ import { OverlayAddon } from './overlay';
 import { ZmodemAddon } from '../zmodem';
 
 import 'xterm/css/xterm.css';
+import { ModemSound } from '../modemsound';
+import { SwitcherBtn } from '../switcherbtn';
 
 export interface TerminalExtended extends Terminal {
 
@@ -38,7 +40,8 @@ export class Xterm extends Component<Props> {
     private textEncoder: TextEncoder;
     private textDecoder: TextDecoder;
     private container: HTMLElement;
-    private terminal: Terminal;d
+    private intro: HTMLElement;
+    private terminal: Terminal;
     private overlayAddon: OverlayAddon;
     private zmodemAddon: ZmodemAddon;
     private socket: WebSocket;
@@ -46,6 +49,7 @@ export class Xterm extends Component<Props> {
     private resizeTimeout: NodeJS.Timer;
     private backoff: backoff.Backoff;
     private backoffLock = false;
+    private modemSound : ModemSound;
 
     constructor(props) {
         super(props);
@@ -65,11 +69,32 @@ export class Xterm extends Component<Props> {
             console.log(`[ttyd] will attempt to reconnect websocket in ${delay}ms`);
             this.backoffLock = true;
         });
+
     }
 
     componentDidMount() {
-        this.openTerminal();
+
+        this.intro.addEventListener("click",  this.startTerminal);
+
     }
+
+    @bind
+    private startTerminal(e) {
+
+        const { intro, modemSound } = this;
+
+        e.preventDefault();
+
+        intro.removeEventListener("click", this.startTerminal);
+
+        intro.parentElement.removeChild(intro);
+
+        modemSound.playAudio();
+
+        this.openTerminal();
+
+    }
+
 
     componentWillUnmount() {
         this.socket.close();
@@ -80,24 +105,43 @@ export class Xterm extends Component<Props> {
     }
 
     render({ id }: Props) {
-      /*
-      <a class="switcher" href="#"></a>
-      <div class="screen glitch">
-        <div class="terminal is-off">
-          <span logo="MVS 3.8j">
-              <div id="terminal"></div>
-          </span>
-        </div>
-        <div class="figure"></div>
-        <div class="figure-mask"></div>
-      </div>
-      */
+
         return (
 
                 <div class="screen glitch">
                     <div id={id} ref={c => (this.container = c)}>
                         <ZmodemAddon ref={c => (this.zmodemAddon = c)} sender={this.sendData} />
                     </div>
+
+                    
+                    <div ref={c => (this.intro = c)}>  
+                        <h1>Click anywhere to connect Nightmare BBS</h1>  
+                        <div id="board" >
+                        
+                        <div id="content">
+                            <p id="title">Nightmare BBS</p>
+                            <p id="subtitle">2:331/313@fidonet</p>
+
+                            <p>Nightmare BBS is an hystorical Fidonet BBS ; it was  born in Pesaro, Italy, in 1991 ;
+                                Formerly with Address 2:332/313, then with 2:332/901 and 902 (Hub Marche, Italy).</p>
+                            <p>Nightmare BBS was active until 1997, and then closed because of Italian Crackdown.</p>
+                            <p/>
+                            <p>It was rebuilt at the beginning of 2020, In Cassina De' Pecchi, Italy.
+                                Current address is 2:331/313.
+                                Accessible via:
+                            <ul>
+                                <li>browser on https://bbs.3bsoft.com</li>
+                                <li>telnet on bbs.3bsoft.com port 14025</li>
+                                <li>echomail is available on https://fidonet.3bsoft.com</li>
+                            </ul>
+                            </p>
+                              
+                        </div>  
+                        </div>  
+                    </div>
+
+                    <ModemSound ref={c => (this.modemSound = c)} />
+                    <SwitcherBtn />
                 </div>
 
         );
@@ -166,6 +210,9 @@ export class Xterm extends Component<Props> {
 
     @bind
     private openTerminal() {
+
+        // alert('open terminal');
+
         if (this.terminal) {
             this.terminal.dispose();
         }

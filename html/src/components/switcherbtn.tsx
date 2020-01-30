@@ -12,26 +12,26 @@ if ((module as any).hot) {
 export class SwitcherBtn extends Component {
 
     private switcherButton : HTMLElement
-
+    
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
         
-        let theScreen = document.querySelector('.screen');
+        let theScreen = this.switcherButton.parentElement; //    document.querySelector('.screen');
+
+        //alert(theScreen);
 
         var isGlitch = localStorage.getItem('isGlitch') === 'true';
 
-        if (isGlitch)
-            theScreen.classList.add('glitch');
-        else 
+        if (!isGlitch)
             theScreen.classList.remove('glitch');
 
         this.switcherButton.addEventListener("click",  function (e) { 
           e.preventDefault();
 
-          let theScreen = document.querySelector('.screen');
+          //let theScreen = document.querySelector('.screen');
           theScreen.classList.toggle('glitch');
 
           var isGlitch = theScreen.classList.contains('glitch');
