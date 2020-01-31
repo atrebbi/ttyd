@@ -7,7 +7,7 @@ if ((module as any).hot) {
     require('preact/debug');
 }
 
-
+import './switcherbtn.scss';
 
 export class SwitcherBtn extends Component {
 

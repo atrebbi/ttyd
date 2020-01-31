@@ -42,36 +42,7 @@ body {
   background: #111;
   color: #fff;
 }
-a.switcher {
-  display: block;
-  position: fixed;
-  text-decoration: none;
-  z-index: 999999999999;
-  right: 20px;
-  bottom: 20px;
-  width: 16px;
-  height: 16px;
-  background: transparent;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  opacity: 0.15;
-  -webkit-transition: opacity 0.15s;
-  transition: opacity 0.15s;
-}
-a.switcher:hover {
-  opacity: 1;
-}
-a.switcher:before {
-  display: block;
-  content: '';
-  position: absolute;
-  border-radius: 4px;
-  width: 2px;
-  height: 5px;
-  background: #fff;
-  top: 0;
-  left: 5px;
-}
+
 .screen {
   position: relative;
   z-index: 1;
@@ -1437,8 +1408,16 @@ canvas {
 
 
 /* Testo Start Wars effect */
+
+#boardtitle {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
 #board {
-  transform: perspective(300px) rotateX(25deg);
+  transform: perspective(300px) rotateX(20deg);
   transform-origin: 50% 100%;
   text-align: justify;
   position: absolute;
@@ -1450,6 +1429,7 @@ canvas {
   width: 18em;
   bottom: 0;
   left: 50%;
+  cursor: pointer;
 }
 
 #board:after {
@@ -1463,7 +1443,9 @@ canvas {
 
 /* Set the scrolling animation and position it */
 #content {
-  animation: scroll 100s linear 1s;
+  animation: scroll 20s linear 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
   position: absolute;
   top: 100%;
 }
@@ -1478,6 +1460,6 @@ canvas {
     top: 100%;
   }
   100% {
-    top: -170%;
+    top: 60%;
   }
 }

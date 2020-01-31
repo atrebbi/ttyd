@@ -6,8 +6,8 @@ import { OverlayAddon } from './overlay';
 import { ZmodemAddon } from '../zmodem';
 
 import 'xterm/css/xterm.css';
-import { ModemSound } from '../modemsound';
-import { SwitcherBtn } from '../switcherbtn';
+import { ModemSound } from '../modemsound/modemsound';
+import { SwitcherBtn } from '../switcherbtn/switcherbtn';
 
 export interface TerminalExtended extends Terminal {
 
@@ -115,28 +115,22 @@ export class Xterm extends Component<Props> {
 
                     
                     <div ref={c => (this.intro = c)}>  
-                        <h1>Click anywhere to connect Nightmare BBS</h1>  
+                        <h1 id="boardtitle">Click anywhere to connect Nightmare BBS<hr/></h1>  
                         <div id="board" >
                         
-                        <div id="content">
-                            <p id="title">Nightmare BBS</p>
-                            <p id="subtitle">2:331/313@fidonet</p>
+                            <div id="content">
+                                <p id="title">Nightmare BBS</p>
+                                <p id="subtitle">2:331/313@fidonet</p>
 
-                            <p>Nightmare BBS is an hystorical Fidonet BBS ; it was  born in Pesaro, Italy, in 1991 ;
-                                Formerly with Address 2:332/313, then with 2:332/901 and 902 (Hub Marche, Italy).</p>
-                            <p>Nightmare BBS was active until 1997, and then closed because of Italian Crackdown.</p>
-                            <p/>
-                            <p>It was rebuilt at the beginning of 2020, In Cassina De' Pecchi, Italy.
-                                Current address is 2:331/313.
-                                Accessible via:
-                            <ul>
-                                <li>browser on https://bbs.3bsoft.com</li>
-                                <li>telnet on bbs.3bsoft.com port 14025</li>
-                                <li>echomail is available on https://fidonet.3bsoft.com</li>
-                            </ul>
-                            </p>
-                              
-                        </div>  
+                                <p>Nightmare BBS is an hystorical Fidonet BBS ; it was  born in Pesaro, Italy, in 1991 ;
+                                    Formerly with Address 2:332/313, then with 2:332/901 and 902 (Hub Marche, Italy).</p>
+                                <p>Nightmare BBS was active until 1997, and then closed because of Italian Crackdown.</p>
+                                <p/>
+                                <p>It was rebuilt at the beginning of 2020, In Cassina De' Pecchi, Italy.
+                                    Current address is 2:331/313.
+                                </p>
+                                
+                            </div>  
                         </div>  
                     </div>
 

@@ -1,0 +1,32 @@
+
+a.switcher {
+    display: block;
+    position: fixed;
+    text-decoration: none;
+    z-index: 999999999999;
+    right: 20px;
+    bottom: 20px;
+    width: 16px;
+    height: 16px;
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    opacity: 0.15;
+    -webkit-transition: opacity 0.15s;
+    transition: opacity 0.15s;
+  }
+  a.switcher:hover {
+    opacity: 1;
+  }
+  a.switcher:before {
+    display: block;
+    content: '';
+    position: absolute;
+    border-radius: 4px;
+    width: 2px;
+    height: 5px;
+    background: #fff;
+    top: 0;
+    left: 5px;
+  }
+  
