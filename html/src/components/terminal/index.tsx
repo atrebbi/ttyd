@@ -50,6 +50,7 @@ export class Xterm extends Component<Props> {
     private backoff: backoff.Backoff;
     private backoffLock = false;
     private modemSound : ModemSound;
+    private switcherBtn: SwitcherBtn;
 
     constructor(props) {
         super(props);
@@ -81,7 +82,7 @@ export class Xterm extends Component<Props> {
     @bind
     private startTerminal(e) {
 
-        const { intro, modemSound } = this;
+        const { intro, modemSound , switcherBtn} = this;
 
         e.preventDefault();
 
@@ -92,6 +93,8 @@ export class Xterm extends Component<Props> {
         modemSound.playAudio();
 
         this.openTerminal();
+
+        switcherBtn.show();
 
     }
 
@@ -108,14 +111,15 @@ export class Xterm extends Component<Props> {
 
         return (
 
-                <div class="screen glitch">
+                <div class="screen">
                     <div id={id} ref={c => (this.container = c)}>
                         <ZmodemAddon ref={c => (this.zmodemAddon = c)} sender={this.sendData} />
                     </div>
 
                     
                     <div ref={c => (this.intro = c)}>  
-                        <h1 id="boardtitle">Click anywhere to connect Nightmare BBS<hr/></h1>  
+                        <h1 id="boardtitle">Click anywhere to connect to Nightmare BBS</h1>  
+                        
                         <div id="board" >
                         
                             <div id="content">
@@ -126,16 +130,16 @@ export class Xterm extends Component<Props> {
                                     Formerly with Address 2:332/313, then with 2:332/901 and 902 (Hub Marche, Italy).</p>
                                 <p>Nightmare BBS was active until 1997, and then closed because of Italian Crackdown.</p>
                                 <p/>
-                                <p>It was rebuilt at the beginning of 2020, In Cassina De' Pecchi, Italy.
+                                <p>It was rebuilt at the beginning of 2020, In Cassina De' Pecchi, Milan, Italy.
                                     Current address is 2:331/313.
                                 </p>
-                                
+                                <p>Click anywhere to connect to Nightmare BBS</p>
                             </div>  
                         </div>  
                     </div>
 
                     <ModemSound ref={c => (this.modemSound = c)} />
-                    <SwitcherBtn />
+                    <SwitcherBtn ref={c => (this.switcherBtn = c)} />
                 </div>
 
         );

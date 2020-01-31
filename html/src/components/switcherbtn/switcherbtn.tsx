@@ -18,17 +18,37 @@ export class SwitcherBtn extends Component {
     }
 
     componentDidMount() {
-        
-        let theScreen = this.switcherButton.parentElement; //    document.querySelector('.screen');
+        this.switcherButton.style.visibility = "hidden";
+    }
+
+    render() {
+
+      return (
+
+            <a ref={c => (this.switcherButton = c)} class="switcher" href="#"></a>
+ 
+      );
+
+    }
+
+
+    public show() {
+        const { switcherButton } = this;
+
+        switcherButton.style.visibility = "visible";
+
+        let theScreen = switcherButton.parentElement; //    document.querySelector('.screen');
 
         //alert(theScreen);
 
         var isGlitch = localStorage.getItem('isGlitch') === 'true';
 
-        if (!isGlitch)
+        if (isGlitch)
+            theScreen.classList.add('glitch');
+        else
             theScreen.classList.remove('glitch');
 
-        this.switcherButton.addEventListener("click",  function (e) { 
+        switcherButton.addEventListener("click",  function (e) { 
           e.preventDefault();
 
           //let theScreen = document.querySelector('.screen');
@@ -49,33 +69,9 @@ export class SwitcherBtn extends Component {
           //terminal.focus();
         });
 
-    }
 
-    render() {
 
-       /*
-       let src = "data:audio/mpeg;charset=utf-8;base64," + initialSound;
-       let type = "audio/mpeg";
-
-       return (
-           <div>
-                <audio ref={c => (this.audio = c)}>
-                    <source src={src} type={type} />
-                    Your browser does not support the audio element.
-                </audio>    
-           </div> 
-       ) ;
-       */
-
-      return (
-
-            <a ref={c => (this.switcherButton = c)} class="switcher" href="#"></a>
- 
-      );
-
-    }
-
- 
+    } 
 
 }
 
