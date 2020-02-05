@@ -122,9 +122,9 @@ export class Xterm extends Component<Props> {
                         
                         <div id="board" >
                         
-                            <div id="content">
-                                <p id="title">Nightmare BBS</p>
-                                <p id="subtitle">2:331/313@fidonet</p>
+                            <div id="boardcontent">
+                                <p id="boardtexttitle">Nightmare BBS</p>
+                                <p id="boardtextsubtitle">2:331/313@fidonet</p>
 
                                 <p>Nightmare BBS is an hystorical Fidonet BBS ; it was  born in Pesaro, Italy, in 1991 ;
                                     Formerly with Address 2:332/313, then with 2:332/901 and 902 (Hub Marche, Italy).</p>
