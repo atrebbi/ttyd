@@ -10655,5 +10655,15 @@ export class ModemSound extends Component {
 
     }
 
+    pauseAudio() {
+
+        var s = this.audio as HTMLAudioElement;
+
+        setTimeout(() => { 
+            s.pause();
+        }, 100);
+
+    }
+
 }
 

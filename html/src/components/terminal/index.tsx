@@ -173,11 +173,16 @@ export class Xterm extends Component<Props> {
                         Math.floor(containerHeight / rows - 2),
                     );   
 
-                    var fontHeight = Math.floor(fontSize) + 1
-                    var fontWidth = Math.floor(fontSize / 2.0) + 1
 
-                    containerWidth = fontWidth * cols;
-                    containerHeight = fontHeight * rows;
+                    // determino dal testo nel div #calcTextWidth
+                    var test = document.getElementById("calcTextWidth");
+                    test.style.fontSize = fontSize + "px";
+                    var fontHeight = Math.floor(test.clientHeight) - 1;
+                    var fontWidth = Math.floor(test.clientWidth / 80) - 1;
+
+
+                    containerWidth = (fontWidth+1) * cols;
+                    containerHeight = (fontHeight+1) * rows;
 
                     var containerTop = (window.innerHeight - containerHeight) / 2.0;
                         
