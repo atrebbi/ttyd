@@ -177,9 +177,8 @@ export class Xterm extends Component<Props> {
                     // determino dal testo nel div #calcTextWidth
                     var test = document.getElementById("calcTextWidth");
                     test.style.fontSize = fontSize + "px";
-                    var fontHeight = Math.floor(test.clientHeight) - 1;
-                    var fontWidth = Math.floor(test.clientWidth / 80) - 1;
-
+                    var fontHeight = Math.floor((test.clientHeight+1) / 2) - 1;
+                    var fontWidth = Math.floor((test.clientWidth+1) / 10) - 1;
 
                     containerWidth = (fontWidth+1) * cols;
                     containerHeight = (fontHeight+1) * rows;
@@ -248,6 +247,8 @@ export class Xterm extends Component<Props> {
                 document.execCommand('copy');
             });
         }
+
+        terminal.onKey(this.onKey);
 
         terminal.open(container);
         terminal.focus();
@@ -363,5 +364,26 @@ export class Xterm extends Component<Props> {
         }
     }
 
+    @bind
+    private onKey(e: { key: string; domEvent: KeyboardEvent; }) {
+        //if (term.x > 2) {
+        //    if (term._core.buffer.x > 2) {
+        if (e.domEvent.keyCode === 8) {
+            
+            // cosi' funziona ma solo in locale, su server la stringa non e' cancellata
+            //this.terminal.write('\b \b');
+
+            // cosi' va in alto prima riga (?)
+            //this.terminal.write(String.fromCharCode(27) + '[0;14');
+
+            // questa stampa i caratteri 3~
+            //this.terminal.write(String.fromCharCode(27) + '[[3~');
+
+        }
+    }
+
+
 }
+
+
 
